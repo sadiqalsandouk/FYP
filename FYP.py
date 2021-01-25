@@ -8,20 +8,20 @@ import streamlit as st
 
 #get the data
 df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP/DATASET.csv', keep_default_na=False)
+#show the data in a table
+st.subheader('Data:')
 st.dataframe(df)
 #cleaning the data
 df = df.replace(['No', 'Never', 'NA', 'Don\'t know', 'Not sure', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes'], 
                      [0, 0, 1, 2, 3, 4, 5, 6, 7, 8])
-
-
-
-#set a subheader
-st.subheader('Data Information:')
-#show the data as a table
+#show the new data in a table
+st.subheader('New Data:')
 st.dataframe(df)
 #show statistics on the data
+st.subheader('Stats:')
 st.write(df.describe())
 #show data as a chart
+st.subheader('Charts:')
 chart = st.bar_chart(df)
 
 #split the data into independent "x" and dependent "Y" variables
