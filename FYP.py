@@ -12,8 +12,13 @@ df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP
 st.subheader('Data:')
 st.dataframe(df)
 #cleaning the data
+#df = df.replace(['No', 'Never', 'NA', 'Don\'t know', 'Not sure', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes'], 
+ #                    [0, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+
 df = df.replace(['No', 'Never', 'NA', 'Don\'t know', 'Not sure', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes'], 
-                     [0, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+                     [0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
+
+
 #show the new data in a table
 st.subheader('New Data:')
 st.dataframe(df)
@@ -33,14 +38,14 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random
 
 #get the freature input from the user
 def get_user_input():
-    family_history = st.sidebar.slider('family_history', 0, 5, 0)
-    work_interfere = st.sidebar.slider('work_interfere', 0, 5, 0)
-    remote_work = st.sidebar.slider('remote_work', 0, 5, 0)
-    care_options = st.sidebar.slider('care_options', 0, 5, 0)
-    wellness_program = st.sidebar.slider('wellness_program', 0, 5, 0)
-    seek_help = st.sidebar.slider('seek_help', 0, 5, 0)
-    mental_health_consequence = st.sidebar.slider('mental_health_consequence', 0, 5, 0)
-    phys_health_consequence = st.sidebar.slider('phys_health_consequence', 0, 5, 0)
+    family_history = st.sidebar.slider('family_history', 0, 1, 0)
+    work_interfere = st.sidebar.slider('work_interfere', 0, 1, 0)
+    remote_work = st.sidebar.slider('remote_work', 0, 1, 0)
+    care_options = st.sidebar.slider('care_options', 0, 1, 0)
+    wellness_program = st.sidebar.slider('wellness_program', 0, 1, 0)
+    seek_help = st.sidebar.slider('seek_help', 0, 1, 0)
+    mental_health_consequence = st.sidebar.slider('mental_health_consequence', 0, 1, 0)
+    phys_health_consequence = st.sidebar.slider('phys_health_consequence', 0, 1, 0)
 
     #store a dictionary
     user_data = {'family_history': family_history,
