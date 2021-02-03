@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 from PIL import Image
 import streamlit as st
 st.sidebar.write("Page Navigation:")
-my_page = st.sidebar.radio('Please Select The Model', ['page 1', 'page 2'])
+my_page = st.sidebar.radio('Info', ['page 1', 'page 2'])
 
 if my_page == 'page 1':
     
@@ -74,32 +74,42 @@ if my_page == 'page 1':
     st.subheader('User Input:')
     st.write(user_input)
 
-    #Create and train the random forest model
-    st.subheader('Random Forest Classifier')
-    RandomForestClassifier = RandomForestClassifier()
-    RandomForestClassifier.fit(X_train,Y_train)
-    #Show the models metrics
-    st.subheader('Model Test Accuracy Score:')
-    st.write(str(accuracy_score(Y_test, RandomForestClassifier.predict(X_test)) * 100)+'%' )
-    #Store the models predictions in a variable
-    RandomForest_prediction = RandomForestClassifier.predict(user_input)
-    #Set a subheader and display the classifcation
-    st.subheader('Classificaition:')
-    st.write(RandomForest_prediction)
+
+    alg = ['Decision Tree', 'Random Forest']
+    pickclassider = st.selectbox('test', alg)
+    if pickclassider=='Decision Tree':
+        #Create and train the decision tree classifer
+        st.subheader('Decision Tree Classifer')
+        DecisionTreeClassifier = DecisionTreeClassifier()
+        DecisionTreeClassifier.fit(X_train, Y_train)
+        #Show the models metrics
+        st.subheader('Model Test Accuracy Score:')
+        st.write(str(accuracy_score(Y_test, DecisionTreeClassifier.predict(X_test)) * 100)+'%' )
+        #Store the models predictions in a variable
+        DecisionTree_prediction = DecisionTreeClassifier.predict(user_input)
+        #Set a subheader and display the classifcation
+        st.subheader('Classificaition:')
+        st.write(DecisionTree_prediction)
+
+    if pickclassider =='Random Forest':
+        #Create and train the random forest model
+        st.subheader('Random Forest Classifier')
+        RandomForestClassifier = RandomForestClassifier()
+        RandomForestClassifier.fit(X_train,Y_train)
+        #Show the models metrics
+        st.subheader('Model Test Accuracy Score:')
+        st.write(str(accuracy_score(Y_test, RandomForestClassifier.predict(X_test)) * 100)+'%' )
+        #Store the models predictions in a variable
+        RandomForest_prediction = RandomForestClassifier.predict(user_input)
+        #Set a subheader and display the classifcation
+        st.subheader('Classificaition:')
+        st.write(RandomForest_prediction)
 
 
-    #Create and train the decision tree classifer
-    st.subheader('Decision Tree Classifer')
-    DecisionTreeClassifier = DecisionTreeClassifier()
-    DecisionTreeClassifier.fit(X_train, Y_train)
-    #Show the models metrics
-    st.subheader('Model Test Accuracy Score:')
-    st.write(str(accuracy_score(Y_test, DecisionTreeClassifier.predict(X_test)) * 100)+'%' )
-    #Store the models predictions in a variable
-    DecisionTree_prediction = DecisionTreeClassifier.predict(user_input)
-    #Set a subheader and display the classifcation
-    st.subheader('Classificaition:')
-    st.write(DecisionTree_prediction)
+    
+
+
+    
 else:
     st.title('test2')
 
