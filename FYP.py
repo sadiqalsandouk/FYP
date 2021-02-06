@@ -48,16 +48,22 @@ def view_all_users():
 
 
 def main():
-    st.title("Welcome")
+    
 
     menu = ["Home","Login"]#,"Sign Up"]
     choice = st.sidebar.selectbox("Menu",menu)
 
     if choice == "Home":
-        st.subheader("Home")
+        image = Image.open('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/Resources/1.png')
+        image2 = Image.open('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/Resources/2.png')
+        st.image(image, use_column_width=True)
+        st.image(image2, use_column_width=True)
+
 
     elif choice == "Login":
         st.sidebar.subheader("Login Section")
+        st.title("Please login using the left sidebar")
+        st.subheader("")
 
         username = st.sidebar.text_input("User Name")
         password = st.sidebar.text_input("Password",type='password')
