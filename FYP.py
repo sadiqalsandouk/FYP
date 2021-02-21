@@ -188,12 +188,12 @@ def main():
             else:
                 st.warning("Incorrect Username/Password")
 
-    elif choice == "SignUp":
+    elif choice == "Sign Up":
         st.subheader("Create New Account")
         new_user = st.text_input("Username")
         new_password = st.text_input("Password",type='password')
 
-        if st.button("Signup"):
+        if st.button("Sign Up"):
             create_usertable()
             add_userdata(new_user,make_hashes(new_password))
             st.success("You have successfully created a valid Account")
