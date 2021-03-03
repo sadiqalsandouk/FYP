@@ -8,7 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from PIL import Image
 import streamlit as st
-import sqlite3 
+import sqlite3
 import hashlib
 
 
@@ -86,31 +86,58 @@ def main():
                     #show the data in a table
                     st.subheader('Data:')
                     st.dataframe(df)
-                    #cleaning the data
-                    df = df.replace(['No', 'Never', 'NA', 'Don\'t know', 'Not sure', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes'], 
-                                        [0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
-
+                    #cleaning the data (Yes/No)
+                    df = df.replace(['', 'Unsure', 'Not applicable to me', 'No, I don\'t know any', 'Not eligible for coverage / N/A','No', 'Never', 'I don\'t know', 'I know some', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes', 'Yes, I know several', 'Always'], 
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1])
+                    #cleaning the gender column does not reflect any views, I have attempted to be as aware as possible with the goal to make the models as optimal as possible.
+                    #cleaning the data (Gender - Male)
+                    df = df.replace(['Male', 'Dude', 'Male.', 'cisdude', 'I\'m a man why didn\'t you make this a drop down question. You should of asked sex? And I would of answered yes please. Seriously how much text can this take? ', 'male ', 'MALE' ,'Sex is male' ,'male', 'Male ', 'M', 'm', 'man', 'Male (cis)', 'cis man', 'cisdude' 'MALE', 'cis male', 'Cis Male', 'Cis male', 'Man', 'mail', 'Malr', 'M|'], 
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                    #cleaning the data (Gender - Female)
+                    df = df.replace(['Female', 'female', 'female ', 'Cis female ', ' Female', 'Female (props for making this a freeform field, though)', 'Female ', 'F', 'f', 'fem', 'woman', 'Woman', 'female/woman', 'Cis-woman', 'fm', 'I identify as female.' ], 
+                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+                    #cleaning the data (Gender - Other)
+                    df = df.replace(['non-binary', 'Nonbinary', 'N/A', 'Agender', 'genderqueer woman', 'Unicorn', 'Androgynous', 'Human', 'Fluid', 'Transitioned, M2F', 'AFAB', 'Enby', 'Female or Multi-Gender Femme', 'Other', 'mtf', 'Genderflux demi-girl', 'Other/Transfeminine', 'none of your business', 'nb masculine', 'genderqueer', 'human', 'Queer', 'Genderqueer', 'Bigender', 'Genderfluid', 'Genderfluid (born female)', 'Male (trans, FtM)', 'Transgender woman', 'Cisgender Female', 'Male/genderqueer', 'female-bodied; no feelings about gender', 'male 9:1 female, roughly', 'Female assigned at birth ' ], 
+                                        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+                    #cleaning the data (Age)
+                    df = df.replace(['', 'Unsure', 'Not applicable to me', 'No, I don\'t know any', 'Not eligible for coverage / N/A','No', 'Never', 'I don\'t know', 'I know some', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes', 'Yes, I know several', 'Always'], 
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1])
                     #show the new data in a table
-                    st.subheader('New Data:')
+                    st.subheader('New/Clean Data:')
                     st.dataframe(df)
                     #show statistics on the data
                     st.subheader('Stats:')
                     st.write(df.describe())
+                    st.dataframe(df['What is your gender?'].value_counts())
                     #show data as a chart
                     st.subheader('Charts:')
                     charts = st.bar_chart(df)
                     
 
                 elif pagenav == "System":
-                    
+
                     #get the data
-                    df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP/DATASET.csv', keep_default_na=False)       
-                    #cleaning the data
-                    df = df.replace(['No', 'Never', 'NA', 'Don\'t know', 'Not sure', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes'], 
-                                        [0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
+                    df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP/DATASET.csv', keep_default_na=False)
+                    #show the data in a table
+                    st.subheader('Data:')
+                    st.dataframe(df)
+                    #cleaning the data (Yes/No)
+                    df = df.replace(['', 'Unsure', 'Not applicable to me', 'No, I don\'t know any', 'Not eligible for coverage / N/A','No', 'Never', 'I don\'t know', 'I know some', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes', 'Yes, I know several', 'Always'], 
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1])
+                    #cleaning the gender column does not reflect any views, I have attempted to be as aware as possible with the goal to make the models as optimal as possible.
+                    #cleaning the data (Gender - Male)
+                    df = df.replace(['Male', 'Dude', 'Male.', 'cisdude', 'I\'m a man why didn\'t you make this a drop down question. You should of asked sex? And I would of answered yes please. Seriously how much text can this take? ', 'male ', 'MALE' ,'Sex is male' ,'male', 'Male ', 'M', 'm', 'man', 'Male (cis)', 'cis man', 'cisdude' 'MALE', 'cis male', 'Cis Male', 'Cis male', 'Man', 'mail', 'Malr', 'M|'], 
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                    #cleaning the data (Gender - Female)
+                    df = df.replace(['Female', 'female', 'female ', 'Cis female ', ' Female', 'Female (props for making this a freeform field, though)', 'Female ', 'F', 'f', 'fem', 'woman', 'Woman', 'female/woman', 'Cis-woman', 'fm', 'I identify as female.' ], 
+                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+                    #cleaning the data (Gender - Other)
+                    df = df.replace(['non-binary', 'Nonbinary', 'N/A', 'Agender', 'genderqueer woman', 'Unicorn', 'Androgynous', 'Human', 'Fluid', 'Transitioned, M2F', 'AFAB', 'Enby', 'Female or Multi-Gender Femme', 'Other', 'mtf', 'Genderflux demi-girl', 'Other/Transfeminine', 'none of your business', 'nb masculine', 'genderqueer', 'human', 'Queer', 'Genderqueer', 'Bigender', 'Genderfluid', 'Genderfluid (born female)', 'Male (trans, FtM)', 'Transgender woman', 'Cisgender Female', 'Male/genderqueer', 'female-bodied; no feelings about gender', 'male 9:1 female, roughly', 'Female assigned at birth ' ], 
+                                        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+                    
 
                     #split the data into independent "x" and dependent "Y" variables
-                    X = df.iloc[:, 0:8].values
+                    X = df.iloc[:, 0:11].values
                     Y = df.iloc[:, -1].values
 
                     #split the data set into 75% training and 25% testing
@@ -123,24 +150,29 @@ def main():
                         st.sidebar.write("___")
                         st.sidebar.write("Key:")
                         st.sidebar.write("Yes=1 |‎‎‎‎‎‎‎‎‎ No=0")
-                        family_history = st.sidebar.slider('Does the patient have a family history of mental health issues?', 0, 1, 0)
-                        work_interfere = st.sidebar.slider('Is the mental health issues interferring with their work?', 0, 1, 0)
-                        remote_work = st.sidebar.slider('Is the patient working remotely (WFH)?', 0, 1, 0)
-                        care_options = st.sidebar.slider('Does the patient have access to care options?', 0, 1, 0)
-                        wellness_program = st.sidebar.slider('Is the patient on any wellness programs?', 0, 1, 0)
-                        seek_help = st.sidebar.slider('Is the patient seeking help?', 0, 1, 0)
-                        mental_health_consequence = st.sidebar.slider('Are there any mental health concequences?', 0, 1, 0)
-                        phys_health_consequence = st.sidebar.slider('Are there any physical health concequences?', 0, 1, 0)
-
+                        self_employed = st.sidebar.slider('Are you self-employed?', 0, 1, 0)
+                        healthcare_coverage = st.sidebar.slider('Does your employer provide mental health benefits as part of healthcare coverage?', 0, 1, 0)
+                        seek_help = st.sidebar.slider('Do you know local or online resources to seek help for a mental health disorder?', 0, 1, 0)
+                        productivity_affected = st.sidebar.slider('Do you believe your productivity is ever affected by a mental health issue?', 0, 1, 0)
+                        family_history = st.sidebar.slider('Do you have a family history of mental illness?', 0, 1, 0)
+                        past_mhdisorder = st.sidebar.slider('Have you had a mental health disorder in the past?', 0, 1, 0)
+                        diagnosed_mhcondition = st.sidebar.slider('Have you been diagnosed with a mental health condition by a medical professional?', 0, 1, 0)
+                        interferes_work = st.sidebar.slider('If you have a mental health issue, do you feel that it interferes with your work when being treated effectively?', 0, 1, 0)
+                        age_q = st.sidebar.slider('What is your age?', 0, 1, 0)
+                        gender_q = st.sidebar.slider('What is your gender?', 0, 2, 0)
+                        remote_work = st.sidebar.slider('Do you work remotely?', 0, 1, 0)
                         #store a dictionary
-                        user_data = {'family_history': family_history,
-                        'work_interfere':work_interfere,
-                        'remote_work':remote_work,
-                        'care_options':care_options,
-                        'wellness_program':wellness_program,
+                        user_data = {'self_employed': self_employed,
+                        'healthcare_coverage':healthcare_coverage,
                         'seek_help':seek_help,
-                        'mental_health_consequence':mental_health_consequence,
-                        'phys_health_consequence':phys_health_consequence
+                        'productivity_affected':productivity_affected,
+                        'family_history':family_history,
+                        'past_mhdisorder':past_mhdisorder,
+                        'diagnosed_mhcondition':diagnosed_mhcondition,
+                        'interferes_work':interferes_work,
+                        'age_q':age_q,
+                        'gender_q':gender_q,
+                        'remote_work':remote_work
                         }
                         #transform the data into a data frame
                         features = pd.DataFrame(user_data, index=[0])
