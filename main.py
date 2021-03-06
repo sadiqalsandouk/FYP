@@ -1,29 +1,17 @@
-#import classes
+# import classes
 import analytics
 import system
-#import libraries
-import pandas as pd
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, RandomForestRegressor
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix, plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
+# import libraries
 from PIL import Image
-from matplotlib import pyplot as plt
 import streamlit as st
-import numpy as np
 import seaborn as sns
 sns.set_theme(style="whitegrid")
-import plotly.express as px
 import sqlite3
 import hashlib
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
-
-
 # security
-#passlib,hashlib,bcrypt,scrypt
+# passlib,hashlib,bcrypt,scrypt
 
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
@@ -40,7 +28,6 @@ c = conn.cursor()
 def create_usertable():
     c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT,password TEXT)')
 
-
 def add_userdata(username,password):
     c.execute('INSERT INTO userstable(username,password) VALUES (?,?)',(username,password))
     conn.commit()
@@ -50,16 +37,12 @@ def login_user(username,password):
     data = c.fetchall()
     return data
 
-
 def view_all_users():
     c.execute('SELECT * FROM userstable')
     data = c.fetchall()
     return data
 
-
 def main():
-    
-
     menu = ["Home","Login"]#,"Sign Up"]
     choice = st.sidebar.selectbox("Menu",menu)
 
@@ -74,7 +57,6 @@ def main():
         st.sidebar.subheader("Login Section")
         st.title("Please login using the left sidebar")
         st.subheader("")
-
         username = st.sidebar.text_input("User Name")
         password = st.sidebar.text_input("Password",type='password')
         if st.sidebar.checkbox("Login"):
@@ -94,7 +76,6 @@ def main():
                     
                 elif pagenav == "System":
                     system.main()
-          
             else:
                 st.warning("Incorrect Username/Password")
 

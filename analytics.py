@@ -1,21 +1,11 @@
 #import libraries
 import pandas as pd
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, RandomForestRegressor
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix, plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
-from PIL import Image
 from matplotlib import pyplot as plt
 import streamlit as st
 import numpy as np
 import seaborn as sns
 sns.set_theme(style="whitegrid")
 import plotly.express as px
-import sqlite3
-import hashlib
 
 def main():
     #get the data

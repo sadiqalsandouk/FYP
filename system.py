@@ -1,21 +1,14 @@
-#import libraries
+# import libraries
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, RandomForestRegressor
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix, plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
-from PIL import Image
 from matplotlib import pyplot as plt
 import streamlit as st
 import numpy as np
 import seaborn as sns
 sns.set_theme(style="whitegrid")
-import plotly.express as px
-import sqlite3
-import hashlib
 
 # get the freature input from the user
 def get_user_input():
@@ -57,27 +50,27 @@ def get_user_input():
     return features
 
 def main():
-    #get the data
+    # get the data
 
     df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP/DATASET.csv', keep_default_na=False)
-    #show the data in a table
+    # show the data in a table
 
     st.subheader('Data:')
     st.dataframe(df)
-    #cleaning the data (Yes/No)
+    # cleaning the data (Yes/No)
 
     df = df.replace(['', 'Unsure', 'Not applicable to me', 'No, I don\'t know any', 'Not eligible for coverage / N/A','No', 'Never', 'I don\'t know', 'I know some', 'Rarely', 'Often', 'Sometimes', 'Maybe', 'Yes', 'Yes, I know several', 'Always'], 
                         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1])
-    #cleaning the gender column does not reflect any views, I have attempted to be as aware as possible with the goal to make the models as optimal as possible.
-    #cleaning the data (Gender - Male)
+    # cleaning the gender column does not reflect any views, I have attempted to be as aware as possible with the goal to make the models as optimal as possible.
+    # cleaning the data (Gender - Male)
 
     df = df.replace(['Male', 'Dude', 'Male.', 'cisdude', 'I\'m a man why didn\'t you make this a drop down question. You should of asked sex? And I would of answered yes please. Seriously how much text can this take? ', 'male ', 'MALE' ,'Sex is male' ,'male', 'Male ', 'M', 'm', 'man', 'Male (cis)', 'cis man', 'cisdude' 'MALE', 'cis male', 'Cis Male', 'Cis male', 'Man', 'mail', 'Malr', 'M|'], 
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    #cleaning the data (Gender - Female)
+    # cleaning the data (Gender - Female)
 
     df = df.replace(['Female', 'female', 'female ', 'Cis female ', ' Female', 'Female (props for making this a freeform field, though)', 'Female ', 'F', 'f', 'fem', 'woman', 'Woman', 'female/woman', 'Cis-woman', 'fm', 'I identify as female.' ], 
                         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
-    #cleaning the data (Gender - Other)
+    # cleaning the data (Gender - Other)
 
     df = df.replace(['non-binary', 'Nonbinary', 'N/A', 'Agender', 'genderqueer woman', 'Unicorn', 'Androgynous', 'Human', 'Fluid', 'Transitioned, M2F', 'AFAB', 'Enby', 'Female or Multi-Gender Femme', 'Other', 'mtf', 'Genderflux demi-girl', 'Other/Transfeminine', 'none of your business', 'nb masculine', 'genderqueer', 'human', 'Queer', 'Genderqueer', 'Bigender', 'Genderfluid', 'Genderfluid (born female)', 'Male (trans, FtM)', 'Transgender woman', 'Cisgender Female', 'Male/genderqueer', 'female-bodied; no feelings about gender', 'male 9:1 female, roughly', 'Female assigned at birth ' ], 
                         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
@@ -96,19 +89,19 @@ def main():
     methodDict = {}
     rmseDict = ()
 
-    #split the data into independent "x" and dependent "Y" variables
+    # split the data into independent "x" and dependent "Y" variables
     X = df.iloc[:, 0:11].values
     y = df.iloc[:, -1].values
 
-    #split the data set into 75% training and 25% testing
+    # split the data set into 75% training and 25% testing
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
 
     
 
-    #store the user input into a variable
+    # store the user input into a variable
     user_input = get_user_input()
 
-    #set a subheader and display the users input
+    # set a subheader and display the users input
 
     st.subheader('User Input:')
     st.write(user_input)
