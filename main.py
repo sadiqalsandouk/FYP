@@ -63,19 +63,19 @@ def main():
             # if password == '12345':
             create_usertable()
             hashed_pswd = make_hashes(password)
-
             result = login_user(username,check_hashes(password,hashed_pswd))
-            if result:
 
+            if result:
                 st.success("Logged in as {}".format(username))
-                
 
                 pagenav = st.selectbox("Page Navigation",["System","Analytics"])
+
                 if pagenav == "Analytics":
                     analytics.main()
-                    
+
                 elif pagenav == "System":
                     system.main()
+
             else:
                 st.warning("Incorrect Username/Password")
 
@@ -90,4 +90,5 @@ def main():
             st.success("You have successfully created a valid Account")
             st.info("Go to Login Menu to login")
 
-main()
+if __name__ == '__main__':
+    main()

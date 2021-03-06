@@ -96,8 +96,6 @@ def main():
     # split the data set into 75% training and 25% testing
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
 
-    
-
     # store the user input into a variable
     user_input = get_user_input()
 
@@ -105,7 +103,6 @@ def main():
 
     st.subheader('User Input:')
     st.write(user_input)
-
 
     alg = ['Decision Tree', 'Random Forest']
     st.subheader('Select Classifer:')
