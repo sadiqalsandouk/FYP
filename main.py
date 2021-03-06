@@ -1,6 +1,7 @@
 # import classes
 import analytics
 import system
+import simple
 # import libraries
 from PIL import Image
 import streamlit as st
@@ -68,12 +69,16 @@ def main():
             if result:
                 st.success("Logged in as {}".format(username))
 
-                pagenav = st.selectbox("Page Navigation",["System","Analytics"])
+                pagenav = st.selectbox("Page Navigation",["Main", "Advanced","Analytics"])
+                
+                if pagenav == "Main":
+                    simple.main()
 
-                if pagenav == "Analytics":
+
+                elif pagenav == "Analytics":
                     analytics.main()
 
-                elif pagenav == "System":
+                elif pagenav == "Advanced":
                     system.main()
 
             else:
