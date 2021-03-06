@@ -16,6 +16,7 @@ sns.set_theme(style="whitegrid")
 import plotly.express as px
 import sqlite3
 import hashlib
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
 # security
@@ -86,9 +87,6 @@ def main():
 
                 pagenav = st.selectbox("Page Navigation",["System","Analytics"])
                 if pagenav == "Analytics":
-                    
-
-
                     #get the data
                     df = pd.read_csv('C:/Users/sadiq/OneDrive/Work/Uni/CS3605 Final Year Project/FYP/DATASET.csv', keep_default_na=False)
                     #show the data in a table
@@ -134,7 +132,7 @@ def main():
 
                     corrmat = df.corr()
                     f, ax = plt.subplots(figsize=(12, 9))
-                    sns.heatmap(corrmat, vmax=.8, square=True);
+                    sns.heatmap(corrmat, vmax=.8, square=True)
                     st.pyplot()
                     st.subheader('Correlation Matrix (Treatment):')
                     k = 10 #number of variables for heatmap
@@ -157,12 +155,6 @@ def main():
                     fig = px.violin(data_age, y="What is your age?", x="Have you ever sought treatment for a mental health issue from a mental health professional?", color="What is your gender?", box=True, points="all")
                     st.plotly_chart(fig)
                     
-
-        
-                    
-                    
-                    
-
                 elif pagenav == "System":
 
                     #get the data
@@ -312,8 +304,8 @@ def main():
 
                         RandomForest_prediction = RandomForest.predict(user_input)
                         #display the classifcation
-                        
-                        st.subheader('Classificaition:')
+
+                        st.subheader('Classification:')
                         st.write(RandomForest_prediction)          
 
             else:
