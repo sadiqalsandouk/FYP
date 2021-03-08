@@ -19,7 +19,6 @@ def main():
     float_accuracy_MLP = float(global_accuracy.accuracy_MLP)
 
     if ((float_accuracy_dtree > float_accuracy_forest) and (float_accuracy_dtree > float_accuracy_KNN) and (float_accuracy_dtree > float_accuracy_GBN) and (float_accuracy_dtree > float_accuracy_MLP)):
-        
         st.write(global_classification.RandomForest_prediction)
 
     elif ((float_accuracy_forest > float_accuracy_dtree) and (float_accuracy_forest > float_accuracy_KNN) and (float_accuracy_forest > float_accuracy_GBN) and (float_accuracy_forest > float_accuracy_MLP)):
