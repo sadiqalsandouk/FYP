@@ -1,9 +1,9 @@
-# import libraries
+# Import libraries
 import pandas as pd
 import streamlit as st
 
 
-# get the freature input from the user
+# Get the freature input from the user
 def get_user_input():
     st.sidebar.write("___")
     st.sidebar.write("Please answer the following questions:")
@@ -23,7 +23,7 @@ def get_user_input():
     st.sidebar.write("M = 0 |‎‎‎‎‎‎‎‎‎ F = 1 | Other = 2")
     gender_q = st.sidebar.slider('What is your gender?', 0, 2, 0)
     remote_work = st.sidebar.slider('Do you work remotely?', 0, 1, 0)
-    #store a dictionary
+    # Store a dictionary
     user_data = {'self_employed': self_employed,
     'healthcare_coverage':healthcare_coverage,
     'seek_help':seek_help,
@@ -37,7 +37,7 @@ def get_user_input():
     'remote_work':remote_work
     }
 
-    # transform the data into a data frame
+    # Transform the data into a data frame
 
     features = pd.DataFrame(user_data, index=[0])
     return features

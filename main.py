@@ -1,8 +1,8 @@
-# import classes
+# Import classes
 import analytics
 import system
 import simple
-# import libraries
+# Import libraries
 from PIL import Image
 import streamlit as st
 import seaborn as sns
@@ -11,8 +11,8 @@ import sqlite3
 import hashlib
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-# security
-# passlib,hashlib,bcrypt,scrypt
+# Security
+# Passlib,hashlib,bcrypt,scrypt
 
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
@@ -21,11 +21,11 @@ def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
         return hashed_text
     return False
-# DB management
+# DB Management
 
 conn = sqlite3.connect('data.db')
 c = conn.cursor()
-# DB  functions
+# DB  Functions
 def create_usertable():
     c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT,password TEXT)')
 
@@ -61,7 +61,7 @@ def main():
         username = st.sidebar.text_input("User Name")
         password = st.sidebar.text_input("Password",type='password')
         if st.sidebar.checkbox("Login"):
-            # if password == '12345':
+            # If password == '12345':
             create_usertable()
             hashed_pswd = make_hashes(password)
             result = login_user(username,check_hashes(password,hashed_pswd))
