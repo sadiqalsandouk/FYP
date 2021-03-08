@@ -11,6 +11,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import roc_curve, roc_auc_score
+from sklearn import metrics
 from matplotlib import pyplot as plt
 import streamlit as st
 import numpy as np
@@ -79,6 +82,30 @@ def main():
         # Store the models predictions in a variable
         global_classification.DecisionTree_prediction = DecisionTree.predict(user_input)
         
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        DecisionTree_CM = confusion_matrix(y_test, DecisionTree.predict(X_test))
+        st.write(DecisionTree_CM)
+
+        # ROC & AUC
+        st.subheader('ROC Curve:')
+        r_probs = [0 for _ in range(len(y_test))]
+        DecisionTree_probs = DecisionTree.predict_proba(X_test)
+        DecisionTree_probs = DecisionTree_probs[:, 1]
+        r_auc = roc_auc_score(y_test, r_probs)
+        DecisionTree_auc = roc_auc_score(y_test, DecisionTree_probs)
+        r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
+        DecisionTree_fpr, DecisionTree_tpr, _ = roc_curve(y_test, DecisionTree_probs)
+        plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
+        plt.plot(DecisionTree_fpr, DecisionTree_tpr, marker='.', label='DecisionTree (AUROC = %0.3f)' % DecisionTree_auc)
+        plt.title('ROC Plot')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend()
+        st.pyplot()
+        st.write(('AUROC = %.3f' % (DecisionTree_auc)))
+        
+
         # Set a subheader and display the classification
         st.subheader('Classification:')
         st.write(global_classification.DecisionTree_prediction)
@@ -109,7 +136,30 @@ def main():
         st.subheader('Model Test Accuracy Score:')
         global_accuracy.accuracy_forest = (accuracy_score(y_test, RandomForest.predict(X_test)) * 100)
         st.write(f"{global_accuracy.accuracy_forest}%")
-        
+
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        RandomForest_CM = confusion_matrix(y_test, RandomForest.predict(X_test))
+        st.write(RandomForest_CM)
+
+        # ROC & AUC
+        st.subheader('ROC Curve:')
+        r_probs = [0 for _ in range(len(y_test))]
+        RandomForest_probs = RandomForest.predict_proba(X_test)
+        RandomForest_probs = RandomForest_probs[:, 1]
+        r_auc = roc_auc_score(y_test, r_probs)
+        RandomForest_auc = roc_auc_score(y_test, RandomForest_probs)
+        r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
+        RandomForest_fpr, RandomForest_tpr, _ = roc_curve(y_test, RandomForest_probs)
+        plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
+        plt.plot(RandomForest_fpr, RandomForest_tpr, marker='.', label='Random Forest (AUROC = %0.3f)' % RandomForest_auc)
+        plt.title('ROC Plot')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend()
+        st.pyplot()
+        st.write(('AUROC = %.3f' % (RandomForest_auc)))
+
         # Store the models predictions in a variable
         global_classification.RandomForest_prediction = RandomForest.predict(user_input)
 
@@ -128,6 +178,30 @@ def main():
         global_accuracy.accuracy_KNN = (accuracy_score(y_test, KNN.predict(X_test)) * 100)
         st.write(f"{global_accuracy.accuracy_KNN}%")
 
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        KNN_CM = confusion_matrix(y_test, KNN.predict(X_test))
+        st.write(KNN_CM)
+
+        # ROC & AUC
+        st.subheader('ROC Curve:')
+        r_probs = [0 for _ in range(len(y_test))]
+        KNN_probs = KNN.predict_proba(X_test)
+        KNN_probs = KNN_probs[:, 1]
+        r_auc = roc_auc_score(y_test, r_probs)
+        KNN_auc = roc_auc_score(y_test, KNN_probs)
+        r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
+        KNN_fpr, KNN_tpr, _ = roc_curve(y_test, KNN_probs)
+        plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
+        plt.plot(KNN_fpr, KNN_tpr, marker='.', label='KNN (AUROC = %0.3f)' % KNN_auc)
+        plt.title('ROC Plot')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend()
+        st.pyplot()
+        st.write(('AUROC = %.3f' % (KNN_auc)))
+        
+
         # Store the models predictions in a variable
         global_classification.KNN_prediction = KNN.predict(user_input)
 
@@ -144,6 +218,29 @@ def main():
         st.subheader('Model Test Accuracy Score:')
         global_accuracy.accuracy_GBN = (accuracy_score(y_test, GBN.predict(X_test)) * 100)
         st.write(f"{global_accuracy.accuracy_GBN}%")
+
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        GBN_CM = confusion_matrix(y_test, GBN.predict(X_test))
+        st.write(GBN_CM)
+
+        # ROC & AUC
+        st.subheader('ROC Curve:')
+        r_probs = [0 for _ in range(len(y_test))]
+        GBN_probs = GBN.predict_proba(X_test)
+        GBN_probs = GBN_probs[:, 1]
+        r_auc = roc_auc_score(y_test, r_probs)
+        GBN_auc = roc_auc_score(y_test, GBN_probs)
+        r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
+        GBN_fpr, GBN_tpr, _ = roc_curve(y_test, GBN_probs)
+        plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
+        plt.plot(GBN_fpr, GBN_tpr, marker='.', label='GBN (AUROC = %0.3f)' % GBN_auc)
+        plt.title('ROC Plot')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend()
+        st.pyplot()
+        st.write(('AUROC = %.3f' % (GBN_auc)))
 
         # Store the models predictions in a variable
         global_classification.GBN_prediction = GBN.predict(user_input)
@@ -162,6 +259,29 @@ def main():
         st.subheader('Model Test Accuracy Score:')
         global_accuracy.accuracy_MLP = (accuracy_score(y_test, MLP.predict(X_test)) * 100)
         st.write(f"{global_accuracy.accuracy_MLP}%")
+
+        # ROC & AUC
+        st.subheader('ROC Curve:')
+        r_probs = [0 for _ in range(len(y_test))]
+        MLP_probs = MLP.predict_proba(X_test)
+        MLP_probs = MLP_probs[:, 1]
+        r_auc = roc_auc_score(y_test, r_probs)
+        MLP_auc = roc_auc_score(y_test, MLP_probs)
+        r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
+        MLP_fpr, MLP_tpr, _ = roc_curve(y_test, MLP_probs)
+        plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
+        plt.plot(MLP_fpr, MLP_tpr, marker='.', label='MLP (AUROC = %0.3f)' % MLP_auc)
+        plt.title('ROC Plot')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend()
+        st.pyplot()
+        st.write(('AUROC = %.3f' % (MLP_auc)))
+        
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        MLP_CM = confusion_matrix(y_test, MLP.predict(X_test))
+        st.write(MLP_CM)
 
         # Store the models predictions in a variable
         global_classification.MLP_prediction = MLP.predict(user_input)
