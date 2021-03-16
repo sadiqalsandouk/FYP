@@ -1,5 +1,5 @@
 global DecisionTree_prediction
 global RandomForest_prediction
 global KNN_prediction
-global GBN_prediction
+global GNB_prediction
 global MLP_prediction

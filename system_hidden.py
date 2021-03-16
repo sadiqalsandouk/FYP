@@ -103,13 +103,13 @@ def main():
 
     # Create and train the decision tree classifer
 
-    GBN = GaussianNB()
-    GBN.fit(X_train, y_train)
+    GNB = GaussianNB()
+    GNB.fit(X_train, y_train)
     
-    global_accuracy.accuracy_GBN = (accuracy_score(y_test, GBN.predict(X_test)) * 100)
+    global_accuracy.accuracy_GNB = (accuracy_score(y_test, GNB.predict(X_test)) * 100)
 
     # Store the models predictions in a variable
-    global_classification.GBN_prediction = GBN.predict(user_input)
+    global_classification.GNB_prediction = GNB.predict(user_input)
 
     # Create and train the decision tree classifer
     MLP = MLPClassifier()

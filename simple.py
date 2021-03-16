@@ -15,20 +15,20 @@ def main():
     float_accuracy_dtree = float(global_accuracy.accuracy_dtree)
     float_accuracy_forest = float(global_accuracy.accuracy_forest)
     float_accuracy_KNN = float(global_accuracy.accuracy_KNN)
-    float_accuracy_GBN = float(global_accuracy.accuracy_GBN)
+    float_accuracy_GNB = float(global_accuracy.accuracy_GNB)
     float_accuracy_MLP = float(global_accuracy.accuracy_MLP)
 
-    if ((float_accuracy_dtree > float_accuracy_forest) and (float_accuracy_dtree > float_accuracy_KNN) and (float_accuracy_dtree > float_accuracy_GBN) and (float_accuracy_dtree > float_accuracy_MLP)):
+    if ((float_accuracy_dtree > float_accuracy_forest) and (float_accuracy_dtree > float_accuracy_KNN) and (float_accuracy_dtree > float_accuracy_GNB) and (float_accuracy_dtree > float_accuracy_MLP)):
         st.write(global_classification.RandomForest_prediction)
 
-    elif ((float_accuracy_forest > float_accuracy_dtree) and (float_accuracy_forest > float_accuracy_KNN) and (float_accuracy_forest > float_accuracy_GBN) and (float_accuracy_forest > float_accuracy_MLP)):
+    elif ((float_accuracy_forest > float_accuracy_dtree) and (float_accuracy_forest > float_accuracy_KNN) and (float_accuracy_forest > float_accuracy_GNB) and (float_accuracy_forest > float_accuracy_MLP)):
         st.write(global_classification.DecisionTree_prediction)
 
-    elif ((float_accuracy_KNN > float_accuracy_dtree) and (float_accuracy_KNN > float_accuracy_forest) and (float_accuracy_KNN > float_accuracy_GBN) and (float_accuracy_KNN > float_accuracy_MLP)):
+    elif ((float_accuracy_KNN > float_accuracy_dtree) and (float_accuracy_KNN > float_accuracy_forest) and (float_accuracy_KNN > float_accuracy_GNB) and (float_accuracy_KNN > float_accuracy_MLP)):
         st.write(global_classification.KNN_prediction)
     
-    elif ((float_accuracy_GBN > float_accuracy_dtree) and (float_accuracy_GBN > float_accuracy_forest) and (float_accuracy_GBN > float_accuracy_KNN) and (float_accuracy_GBN > float_accuracy_MLP)):
-        st.write(global_classification.GBN_prediction)
+    elif ((float_accuracy_GNB > float_accuracy_dtree) and (float_accuracy_GNB > float_accuracy_forest) and (float_accuracy_GNB > float_accuracy_KNN) and (float_accuracy_GNB > float_accuracy_MLP)):
+        st.write(global_classification.GNB_prediction)
     
-    elif ((float_accuracy_MLP > float_accuracy_dtree) and (float_accuracy_MLP > float_accuracy_forest) and (float_accuracy_MLP > float_accuracy_KNN) and (float_accuracy_MLP > float_accuracy_GBN)):
+    elif ((float_accuracy_MLP > float_accuracy_dtree) and (float_accuracy_MLP > float_accuracy_forest) and (float_accuracy_MLP > float_accuracy_KNN) and (float_accuracy_MLP > float_accuracy_GNB)):
         st.write(global_classification.MLP_prediction)

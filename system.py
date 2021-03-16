@@ -212,42 +212,42 @@ def main():
     if pickclassifer=='Gaussian Naive Bayes':
         # Create and train the decision tree classifer
 
-        GBN = GaussianNB()
-        GBN.fit(X_train, y_train)
+        GNB = GaussianNB()
+        GNB.fit(X_train, y_train)
         # Show the models metrics
         st.subheader('Model Test Accuracy Score:')
-        global_accuracy.accuracy_GBN = (accuracy_score(y_test, GBN.predict(X_test)) * 100)
-        st.write(f"{global_accuracy.accuracy_GBN}%")
+        global_accuracy.accuracy_GNB = (accuracy_score(y_test, GNB.predict(X_test)) * 100)
+        st.write(f"{global_accuracy.accuracy_GNB}%")
 
         # Display Confusion Matrix
         st.subheader('Confusion Matrix:')
-        GBN_CM = confusion_matrix(y_test, GBN.predict(X_test))
-        st.write(GBN_CM)
+        GNB_CM = confusion_matrix(y_test, GNB.predict(X_test))
+        st.write(GNB_CM)
 
         # ROC & AUC
         st.subheader('ROC Curve:')
         r_probs = [0 for _ in range(len(y_test))]
-        GBN_probs = GBN.predict_proba(X_test)
-        GBN_probs = GBN_probs[:, 1]
+        GNB_probs = GNB.predict_proba(X_test)
+        GNB_probs = GNB_probs[:, 1]
         r_auc = roc_auc_score(y_test, r_probs)
-        GBN_auc = roc_auc_score(y_test, GBN_probs)
+        GNB_auc = roc_auc_score(y_test, GNB_probs)
         r_fpr, r_tpr, _ = roc_curve(y_test, r_probs)
-        GBN_fpr, GBN_tpr, _ = roc_curve(y_test, GBN_probs)
+        GNB_fpr, GNB_tpr, _ = roc_curve(y_test, GNB_probs)
         plt.plot(r_fpr, r_tpr, linestyle='--', label='Random Prediction (AUROC = %0.3f)' % r_auc)
-        plt.plot(GBN_fpr, GBN_tpr, marker='.', label='GBN (AUROC = %0.3f)' % GBN_auc)
+        plt.plot(GNB_fpr, GNB_tpr, marker='.', label='GNB (AUROC = %0.3f)' % GNB_auc)
         plt.title('ROC Plot')
         plt.xlabel('False Positive Rate')
         plt.ylabel('True Positive Rate')
         plt.legend()
         st.pyplot()
-        st.write(('AUROC = %.3f' % (GBN_auc)))
+        st.write(('AUROC = %.3f' % (GNB_auc)))
 
         # Store the models predictions in a variable
-        global_classification.GBN_prediction = GBN.predict(user_input)
+        global_classification.GNB_prediction = GNB.predict(user_input)
 
         # Set a subheader and display the classification
         st.subheader('Classification:')
-        st.write(global_classification.GBN_prediction)
+        st.write(global_classification.GNB_prediction)
 
     if pickclassifer=='Multi-layer Perceptron Neural Network':
 
