@@ -260,6 +260,11 @@ def main():
         global_accuracy.accuracy_MLP = (accuracy_score(y_test, MLP.predict(X_test)) * 100)
         st.write(f"{global_accuracy.accuracy_MLP}%")
 
+        # Display Confusion Matrix
+        st.subheader('Confusion Matrix:')
+        MLP_CM = confusion_matrix(y_test, MLP.predict(X_test))
+        st.write(MLP_CM)
+
         # ROC & AUC
         st.subheader('ROC Curve:')
         r_probs = [0 for _ in range(len(y_test))]
@@ -278,10 +283,7 @@ def main():
         st.pyplot()
         st.write(('AUROC = %.3f' % (MLP_auc)))
         
-        # Display Confusion Matrix
-        st.subheader('Confusion Matrix:')
-        MLP_CM = confusion_matrix(y_test, MLP.predict(X_test))
-        st.write(MLP_CM)
+        
 
         # Store the models predictions in a variable
         global_classification.MLP_prediction = MLP.predict(user_input)
