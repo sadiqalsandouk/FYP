@@ -2,7 +2,7 @@
 
 The system was developed to explore the following:
 
-COVID-19 implications on mental health medical resources and the possibility of treating patients through machine learning predictions.
+## COVID-19 implications on mental health medical resources and the possibility of treating patients through machine learning predictions.
 
 ###
 
